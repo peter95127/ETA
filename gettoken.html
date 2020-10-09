@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="data"></p>
+
+<script>
+    let urlParams = new URLSearchParams(window.location.search);
+
+    let route = urlParams.get('route')
+    let bound = urlParams.get('bound')
+    let serviceType = urlParams.get('serviceType')
+    let BSICode = urlParams.get('BSICode')
+    let Seq = urlParams.get('Seq')
+
+    let utcDateStr = new Date().toISOString().replace("Z", "").replace("T", " ").slice(0, -1)
+    let unixTime = Date.now().toString().slice(0, -1)
+
+    let token = `${route}--31${utcDateStr}.13--${bound}--31${utcDateStr}.13--${serviceType}--31${utcDateStr}.13--${BSICode}--31${utcDateStr}.13--${Seq}--31${utcDateStr}.13--${unixTime}`
+    token = btoa(token)
+    token = 'E' + token
+
+    let data = {
+        "token": token,
+        "t": utcDateStr + "."
+    }
+
+    var j = JSON.stringify(data);
+    document.getElementById("data").innerHTML = j;
+
+</script>
+</body>
+</html>
